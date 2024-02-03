@@ -1,43 +1,64 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Data from '../../model/data/navData.json'
 
-const navList = [
-  {
-    numlist: "00",
-    link: "/",
-    title: "HOME",
-  },
-  {
-    numlist: "01",
-    link: "/destination",
-    title: "DESTINATION",
-  },
-  {
-    numlist: "02",
-    link: "/crew",
-    title: "CREW",
-  },
-  {
-    numlist: "03",
-    link: "/technology",
-    title: "TECHNOLOGY",
-  },
-];
+const navList = Data.navbar
 
 const Navbar: React.FC = () => {
-  
-  return (
-    <div className="flex justify-between h-full">
-      <div className="w-1/4 flex justify-center items-center">
-        <img className="h-[65%]" src="/assets/shared/logo.svg" alt="Logo" />
-      </div>
-      <div className="hidden md:block"></div>
-      <nav className="hidden sm:block"></nav>
-      <div className="w-1/4 flex justify-center items-center sm:hidden">
-        <img className="h-1/3" src="/assets/shared/icon-hamburger.svg" alt="hamburger-button" />
-      </div>
-    </div>
-  );
-};
+    const [trigger, setTrigger] = useState(false)
 
-export default Navbar;
+    const onClickEvent = () => {
+        setTrigger(!trigger)
+    }
+    return (
+        <>
+            {trigger && (
+                <aside className="fixed right-0 z-50 h-[100vh] w-[254px] bg-white/5 backdrop-blur-lg">
+                    <div className="m-auto flex h-[86.99px] w-[190px] items-center justify-end">
+                        <img
+                            className="h-[19.09px] w-[19.09px]"
+                            src="/assets/shared/icon-close.svg"
+                            alt="close icon"
+                            onClick={onClickEvent}
+                        />
+                    </div>
+                    <ul className="m-auto mt-[31px] h-[172px] w-[190px]">
+                        {navList.map((list, i) => (
+                            <li
+                                className="mb-[32px] leading-[auto] tracking-[2.7px] text-white"
+                                key={i}
+                            >
+                                <Link to={list.link}>
+                                    <h2>
+                                        <span className="font-bold">
+                                            {list.numlist}
+                                        </span>{' '}
+                                        <span className="text-white/80">
+                                            {list.title}
+                                        </span>
+                                    </h2>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+            )}
+            <div className="m-auto flex h-full w-[327px] items-center justify-between">
+                <img
+                    className="h-[40px] w-auto sm:pl-11"
+                    src="/assets/shared/logo.svg"
+                    alt="Logo"
+                />
+
+                <img
+                    className="h-[21px] w-auto sm:hidden"
+                    src="/assets/shared/icon-hamburger.svg"
+                    alt="hamburger-button"
+                    onClick={onClickEvent}
+                />
+            </div>
+        </>
+    )
+}
+
+export default Navbar

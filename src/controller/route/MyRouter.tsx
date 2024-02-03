@@ -1,6 +1,6 @@
-import { createBrowserRouter } from "react-router-dom";
-import { ErrorPage } from "..";
-import { ContainerPage } from "../../view";
+import { createBrowserRouter } from 'react-router-dom'
+import { ErrorPage } from '..'
+import { ContainerPage, Crew, Destination, Home, Technology } from '../../view'
 
 export const router = createBrowserRouter([
     {
@@ -9,20 +9,20 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <h1>Hello World</h1>
+                element: <Home />,
             },
             {
                 path: '/destination',
-                element: <h1>Hello World</h1>
+                element: <Destination />,
             },
             {
                 path: '/crew',
-                element: <h1>Hello World</h1>
+                element: <Crew />,
             },
             {
                 path: '/technology',
-                element: <h1>Hello World</h1>
-            }
-        ]
-    }
-]) 
+                element: <Technology />,
+            },
+        ],
+    },
+])
